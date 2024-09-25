@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "540028436000",
+    "project_id": "notebookstudy-1a2a0",
+    "storage_bucket": "notebookstudy-1a2a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540028436000:android:e61691f06a960aae660645",
+        "android_client_info": {
+          "package_name": "com.example.notebook_study"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCR3WLNTgwJkotVo-pMJ1xWKYbMoI1R8bQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
