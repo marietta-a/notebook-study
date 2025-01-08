@@ -1,5 +1,6 @@
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:notebook_study/screens/home/home_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -42,17 +43,19 @@ class HomeScreen extends StatelessWidget {
         ],
         automaticallyImplyLeading: false,
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Image.asset('dash.png', width: 200, height: 200,),
-            Text(
-              'Welcome!',
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            const SignOutButton(),
-          ],
-        ),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: HomeScreenPage(),
+        // child: Column(
+        //   children: [
+        //     Image.asset('dash.png', width: 200, height: 200,),
+        //     Text(
+        //       'Welcome!',
+        //       style: Theme.of(context).textTheme.displaySmall,
+        //     ),
+        //     const SignOutButton(),
+        //   ],
+        // ),
       ),
     );
   }

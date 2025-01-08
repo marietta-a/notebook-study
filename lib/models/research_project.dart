@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:notebook_study/models/user_profile.dart';
 
 class ResearchProject {
@@ -8,4 +9,5 @@ class ResearchProject {
  late DateTime dateCreated;
  late  UserProfile user;
  late String url;
+ late Category category;
 }

@@ -1,0 +1,3 @@
+mixin Initializable{
+   void init();
+}
