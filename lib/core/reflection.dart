@@ -7,11 +7,14 @@ void reflectObject(Object obj) {
   // Get the type of the object
   dynamic classMirror = instanceMirror.type;
 
+  print(instanceMirror);
+
   // List all properties (fields)
   classMirror.declarations.forEach((key, declaration) {
     try{
       var propertyName = MirrorSystem.getName(key);
       var propertyType = MirrorSystem.getName(declaration.type.simpleName);
+  
     }
     catch(ex){
       rethrow; 

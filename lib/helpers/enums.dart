@@ -14,3 +14,15 @@ enum UserRoles {
   viewer,
   subscribed
 }
+
+enum CrudActionMessages {
+   added,
+   updated,
+   deleted,
+   error
+}
+
+enum FormModes {
+  add,
+  update
+}

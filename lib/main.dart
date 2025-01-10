@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:notebook_study/auth_gate.dart';
+import 'package:notebook_study/core/configuration.dart';
 import 'package:notebook_study/services/category_service.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: routes,
       title: 'Notebook Study',
       theme: ThemeData(
         
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: const AuthGate()
+      // home: const AuthGate()
     );
   }
 }

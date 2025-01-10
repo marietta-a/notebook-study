@@ -18,13 +18,20 @@ class CategoryService  extends BaseService with ChangeNotifier, Initializable {
      
        @override
       Future<void> init() async {
+          
+          var props = new CategoryModel(-1, "", null, null).toJson();
+          props.forEach((key, val){
+              print("Prop name: $key, Prop type: ${val.runtimeType}");
+          });
+
           if(categories.isEmpty){
             await getCategories();
           }
        }
 
-      addCategory(CategoryModel item) async {
+      Future<bool> addCategory(CategoryModel item) async {
          try{
+          
           item.id = categories.length + 1;
           final user = getUser();
           item.createdBy = UserProfile(user?.uid, '', '', user?.displayName, user?.email, UserRoles.viewer.name);
@@ -33,9 +40,11 @@ class CategoryService  extends BaseService with ChangeNotifier, Initializable {
           // item.recordChanged(cat);
           categories.add(CategoryModel.fromJson(cat));
           notifyListeners();
+          return true;
          }
          catch(ex){
-          rethrow;
+          print(ex);
+          return false;
          }
       }
 

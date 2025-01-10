@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notebook_study/models/category_model.dart';
 import 'package:notebook_study/screens/research_project/category_list_screen.dart';
 import 'package:notebook_study/screens/research_project/category_screen.dart';
+import 'package:notebook_study/screens/side-menu/side-menu.dart';
 
 
 class HomeScreenPage extends StatelessWidget {
@@ -21,7 +22,7 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('NoteBook Study'),
@@ -30,6 +31,7 @@ class LandingPage extends StatelessWidget {
               Tab(text: 'Home'),
               Tab(text: 'Research Projects'),
               Tab(text: 'Contact'),
+              Tab(text: 'Settings'),
             ],
           ),
         ),
@@ -38,6 +40,7 @@ class LandingPage extends StatelessWidget {
             HomeTab(),
             CategoriesTab(),
             ContactTab(),
+            SettingsScreen()
           ],
         ),
       ),
@@ -93,16 +96,6 @@ class CategoriesTab extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxHeight: 300.0,
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(16.0),
-              color: Colors.blue[100],
-              child: CategoryScreenForm(category: CategoryModel(-1, "", null, null)),
-            ),
-          ),
           ConstrainedBox(
             constraints: const BoxConstraints(
               maxHeight: 300.0,

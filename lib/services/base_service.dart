@@ -16,11 +16,15 @@ class BaseService {
     return _auth.currentUser;
   }
   
+  bool isAdmin(){
+    return true;
+  }
+  
   addItem(String collectionName, Map<String, dynamic> item) async {
     try{
-      await firestore.collection(collectionName).add(item)
+     return await firestore.collection(collectionName).add(item)
       .then((ref) {
-        return ref;
+        return ref.snapshots().map((item) => item.data()).first;
       }).catchError((error){
         throw error;
       });
@@ -43,37 +47,47 @@ class BaseService {
     
   }
 
-  updateItem(String collectionName, int id, Map<String, dynamic> item) async {
+  Future<bool> updateItem(String collectionName, int id, Map<String, dynamic> item) async {
   
     final snapShot = await firestore.collection(collectionName).where('id', isEqualTo: id).get();
+    var isSuccess = true;
 
     if(snapShot.docs.isNotEmpty){
       snapShot.docs.forEach((data) async {
         var docRef = data.reference;
         await docRef.update(item).then((_) {
-          print('document successfully updated');
+          isSuccess = true;
+          // print('document successfully updated');
         }).catchError((error){
-          print('Error updating document: $error');
+          isSuccess = false;
+          // print('Error updating document: $error');
         });
       });
     }
+    
+    return isSuccess;
   }
 
 
-  deleteItem(String collectionName, int id) async {
+  Future<bool> deleteItem(String collectionName, int id) async {
     
     final snapShot = await firestore.collection(collectionName).where('id', isEqualTo: id).get();
+    var isSuccess = true;
 
     if(snapShot.docs.isNotEmpty){
       snapShot.docs.forEach((item) async {
         var docRef = item.reference;
         await docRef.delete().then((_) {
-          print('document successfully updated');
+          // print('document successfully updated');
+          isSuccess = true;
         }).catchError((error){
-          print('Error updating document: $error');
+          // print('Error updating document: $error');
+          isSuccess = false;
         });
       });
     }
+
+    return isSuccess;
 
   }
 
