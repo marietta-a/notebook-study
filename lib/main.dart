@@ -11,6 +11,8 @@ Future<void> main() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+
+  
   
   // runApp(const MyApp());
   runApp(
@@ -18,7 +20,13 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => CategoryService())
       ],
-      child: const MyApp()
+      child: Consumer<CategoryService>(
+        builder: (context, CategoryService, child) {
+          CategoryService.init();
+          return const MyApp();
+        }
+      )
+      
     )
   );
 }

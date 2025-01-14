@@ -1,13 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:notebook_study/core/mixin.dart';
 import 'package:notebook_study/helpers/enums.dart';
-import 'package:notebook_study/models/user_profile.dart';
 import 'package:notebook_study/services/base_service.dart';
 import 'package:notebook_study/models/category_model.dart';
 
 
 class CategoryService  extends BaseService with ChangeNotifier, Initializable {
-
+     
+     late String collectionName = CollectionNames.categories.name;
      late List<CategoryModel> categories = [];
 
      
@@ -27,6 +28,7 @@ class CategoryService  extends BaseService with ChangeNotifier, Initializable {
           if(categories.isEmpty){
             await getCategories();
           }
+          categories.sort((a, b) => a.category.description.compareTo(b.category.description));
        }
 
       Future<bool> addCategory(CategoryModel item) async {
@@ -34,12 +36,18 @@ class CategoryService  extends BaseService with ChangeNotifier, Initializable {
           
           item.id = categories.length + 1;
           final user = getUser();
-          item.createdBy = UserProfile(user?.uid, '', '', user?.displayName, user?.email, UserRoles.viewer.name);
+
           
-          var cat = await addItem(CollectionNames.categories.name, item.toJson());
-          // item.recordChanged(cat);
-          categories.add(CategoryModel.fromJson(cat));
-          notifyListeners();
+
+          CollectionReference docCollection = getInstance().collection(collectionName);
+          DocumentReference docRef = await docCollection.add(item.toJson());
+
+          if(user != null){
+            item.createdBy = getUserProfile();
+            CollectionReference docUCollection = docRef.collection(CollectionNames.user_profiles.name);
+            await docUCollection.add(item.createdBy!.toJson());
+          }
+
           return true;
          }
          catch(ex){

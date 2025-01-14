@@ -30,3 +30,6 @@ final GoRouter routes = GoRouter(
       ),
     ],
   );
+
+
+  final List<String> allowedExtensions = ['pdf', 'doc', 'docx', 'png', 'jpg'];

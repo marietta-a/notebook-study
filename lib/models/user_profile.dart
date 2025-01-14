@@ -2,21 +2,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class UserProfile{
-  String? uuid;
+  String? uid;
   String? firstName;
   String? lastName;
   String? userName;
   String? email;
   String? role;
 
-  UserProfile(this.uuid, this.firstName, this.lastName, this.userName, this.email, this.role);
+  UserProfile({this.uid, this.firstName, this.lastName, this.userName, this.email, this.role});
 
   UserProfile? toUserProfile(User? u){
-     return UserProfile(uuid, firstName, lastName, u?.displayName, u?.email, role);
+     return UserProfile(
+      uid:  uid,
+      firstName:  firstName,
+      lastName:  lastName,
+      userName: u?.displayName,
+      email:  u?.email,
+      role:  role);
   }
   
   Map<String, dynamic> toJson() => {
-    'id': uuid,
+    'uid': uid,
     'firstName': firstName,
     'lastName': lastName,
     'userName': userName,
@@ -25,6 +31,12 @@ class UserProfile{
   };
 
   factory UserProfile.fromJson(Map<String, dynamic> json) {
-    return UserProfile(json['id'], json['firstName'], json['lastName'], json['userName'], json['email'], json['role']);
+    return UserProfile(
+      uid: json['uid'],
+      firstName:  json['firstName'],
+      lastName:  json['lastName'],
+      userName:  json['userName'],
+      email:  json['email'],
+      role:  json['role']);
   }
 }

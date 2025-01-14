@@ -58,7 +58,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 node: FocusScopeNode(),
                 child: Column(
                     children: widget.item.entries.map((entry){
-                        dynamic initVal = entry.value;
+                        dynamic initVal = widget.formMode == FormModes.add.index ? null : entry.value;
                         return  TextFormField(
                         autofocus: true,
                         focusNode: _focusNode1,
@@ -73,10 +73,12 @@ class _FormBuilderState extends State<FormBuilder> {
                         onSaved: (value) => initVal = value!,
                         );
                       }).toList()
-                      )
                     ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
+                    
+                  ),
+                  
+                  const SizedBox(height: 20),
+                  ElevatedButton(
                       onPressed: () {
                         // _setCursorPosition();
                         if (_formKey.currentState!.validate()) {
@@ -86,12 +88,10 @@ class _FormBuilderState extends State<FormBuilder> {
                             Navigator.pop(context);
                         }
                       },
-                      child: Text(FormModes.values[widget.formMode] == FormModes.add ? 'Add ${widget.formName}' : 'Edit ${widget.formName})
+                      child: Text(FormModes.values[widget.formMode] == FormModes.add ? 'Add ${widget.formName}' : 'Edit ${widget.formName}')
                       
                     )
-                    )
-                  ]
-                )
+                ])
               ),
           ),
         );

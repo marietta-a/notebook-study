@@ -1,5 +1,6 @@
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:notebook_study/screens/document/document_upload_screen.dart';
 import 'package:notebook_study/screens/home/home_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -28,11 +29,11 @@ class SettingsScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('Home'),
+              title: Text('Document upload'),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
+                  MaterialPageRoute(builder: (context) => DocumentUploadScreen()),
                 );
               },
             ),

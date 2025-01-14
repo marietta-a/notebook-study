@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:notebook_study/helpers/enums.dart';
+import 'package:notebook_study/models/user_profile.dart';
 
 class BaseService {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  static User? currentUser =  FirebaseAuth.instance.currentUser;
 
   void authorize() {
      final user = _auth.currentUser;
@@ -12,14 +15,31 @@ class BaseService {
      }
   }
 
+  FirebaseFirestore getInstance() {
+    return firestore;
+  }
+
+
   User? getUser(){
     return _auth.currentUser;
+  }
+
+  UserProfile? getUserProfile(){
+    User? user = getUser();
+    return UserProfile(
+      uid:  user!.uid,
+      firstName:  '',
+      lastName:  '',
+      userName:  user.displayName,
+      email:  user.email,
+      role:  UserRoles.viewer.name
+    );
   }
   
   bool isAdmin(){
     return true;
   }
-  
+
   addItem(String collectionName, Map<String, dynamic> item) async {
     try{
      return await firestore.collection(collectionName).add(item)
@@ -47,9 +67,13 @@ class BaseService {
     
   }
 
+  Future<QuerySnapshot<Map<String, dynamic>>> findItem(String collectionName, String arg, dynamic value) async {
+    return await firestore.collection(collectionName).where(arg, isEqualTo: value).get();
+  }
+
   Future<bool> updateItem(String collectionName, int id, Map<String, dynamic> item) async {
   
-    final snapShot = await firestore.collection(collectionName).where('id', isEqualTo: id).get();
+    final snapShot = await findItem(collectionName, 'id', id);
     var isSuccess = true;
 
     if(snapShot.docs.isNotEmpty){
@@ -67,6 +91,8 @@ class BaseService {
     
     return isSuccess;
   }
+
+  
 
 
   Future<bool> deleteItem(String collectionName, int id) async {

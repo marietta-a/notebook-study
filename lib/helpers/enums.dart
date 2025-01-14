@@ -6,7 +6,9 @@ enum CollectionNames {
   user_roles,
   role_privileges,
   research_projects,
-  categories
+  categories,
+  uploads,
+  documentuploads,
 }
 
 enum UserRoles {

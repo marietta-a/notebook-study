@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:notebook_study/helpers/enums.dart';
 import 'package:notebook_study/models/category_model.dart';
-import 'package:notebook_study/screens/notifications/crud_notification.dart';
+import 'package:notebook_study/screens/notifications/crud_notification_screen.dart';
 import 'package:notebook_study/services/category_service.dart';
 import 'package:provider/provider.dart';
 
